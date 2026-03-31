@@ -5,10 +5,6 @@ import OpenAI from "openai";
 
 export const dynamic = "force-dynamic";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 // POST /api/boxes/:id/images/analyze — analyze an image to detect items
 export async function POST(
   req: NextRequest,
@@ -21,6 +17,10 @@ export async function POST(
   if (!box) {
     return NextResponse.json({ error: "Box not found" }, { status: 404 });
   }
+
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
 
   const body = await req.json();
   const { imageUrl } = body;
