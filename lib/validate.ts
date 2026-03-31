@@ -15,12 +15,7 @@ export const BoxTagEnum = z.enum([
 // --- Size ---
 const BoxSizeSchema = z.discriminatedUnion('type', [
   z.object({ type: z.enum(['S', 'M', 'L', 'XL']) }),
-  z.object({
-    type: z.literal('custom'),
-    length: z.number().positive(),
-    width: z.number().positive(),
-    height: z.number().positive(),
-  }),
+  z.object({ type: z.literal('custom') }),
 ]);
 
 // --- Members ---
@@ -33,7 +28,7 @@ export const CreateMemberSchema = z.object({
 // --- Boxes ---
 export const CreateBoxSchema = z.object({
   moveId: objectIdString,
-  creatorId: objectIdString,
+  creatorId: objectIdString.optional(),
   label: z.string().min(1).max(100),
   room: z.string().min(1).max(50),
   size: BoxSizeSchema,
