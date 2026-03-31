@@ -28,7 +28,7 @@ export const CreateMemberSchema = z.object({
 // --- Boxes ---
 export const CreateBoxSchema = z.object({
   moveId: objectIdString,
-  creatorId: objectIdString.optional(),
+  creatorId: z.any().optional(),
   label: z.string().min(1).max(100),
   room: z.string().min(1).max(50),
   size: BoxSizeSchema,
