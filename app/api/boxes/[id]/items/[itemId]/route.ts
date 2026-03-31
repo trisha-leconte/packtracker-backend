@@ -38,6 +38,19 @@ export async function PATCH(
     updates.unpacked = !!body.unpacked;
   }
 
+  if (body.condition_before !== undefined) {
+    updates.condition_before = body.condition_before;
+  }
+  if (body.condition_after !== undefined) {
+    updates.condition_after = body.condition_after;
+  }
+  if (body.photos_before !== undefined) {
+    updates.photos_before = body.photos_before;
+  }
+  if (body.photos_after !== undefined) {
+    updates.photos_after = body.photos_after;
+  }
+
   if (Object.keys(updates).length === 0) {
     return NextResponse.json({ error: 'Nothing to update' }, { status: 400 });
   }

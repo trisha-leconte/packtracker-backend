@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 422 });
   }
 
-  const { moveId, label, room, size, tags, notes } = parsed.data;
+  const { moveId, label, room, size, tags, notes, is_loose } = parsed.data;
 
   if (!(await canAccessMove(userId, moveId))) {
     return NextResponse.json({ error: 'Move not found' }, { status: 404 });
@@ -123,6 +123,7 @@ export async function POST(req: NextRequest) {
     size,
     tags: tags || [],
     notes: notes || '',
+    is_loose: is_loose || false,
     status: 'unpacked' as const,
     created_at: now,
     updated_at: now,
