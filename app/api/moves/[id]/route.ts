@@ -81,6 +81,7 @@ export async function PATCH(
   if (parsed.data.fromAddress !== undefined) update.from_address = parsed.data.fromAddress;
   if (parsed.data.toAddress !== undefined) update.to_address = parsed.data.toAddress;
   if (parsed.data.startDate !== undefined) update.start_date = new Date(parsed.data.startDate);
+  if (parsed.data.targetDate !== undefined) update.target_date = parsed.data.targetDate ? new Date(parsed.data.targetDate) : null;
 
   const result = await db.collection('moves').findOneAndUpdate(
     { _id: moveId },

@@ -54,11 +54,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 422 });
   }
 
-  const { name, startDate, fromAddress, toAddress } = parsed.data;
+  const { name, startDate, targetDate, fromAddress, toAddress } = parsed.data;
   const doc = {
     owner_id: new ObjectId(userId),
     name,
     start_date: new Date(startDate),
+    target_date: targetDate ? new Date(targetDate) : null,
     from_address: fromAddress || null,
     to_address: toAddress || null,
     status: 'planning' as const,

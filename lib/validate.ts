@@ -57,6 +57,7 @@ export const AddItemsSchema = z.object({
 export const CreateMoveSchema = z.object({
   name: z.string().min(1).max(100),
   startDate: z.string().datetime({ offset: true }).or(z.string().date()),
+  targetDate: z.string().datetime({ offset: true }).or(z.string().date()).optional(),
   fromAddress: z.string().max(255).optional(),
   toAddress: z.string().max(255).optional(),
 });
@@ -64,6 +65,7 @@ export const CreateMoveSchema = z.object({
 export const UpdateMoveSchema = z.object({
   name: z.string().min(1).max(100).optional(),
   startDate: z.string().datetime({ offset: true }).or(z.string().date()).optional(),
+  targetDate: z.string().datetime({ offset: true }).or(z.string().date()).optional().nullable(),
   fromAddress: z.string().max(255).optional(),
   toAddress: z.string().max(255).optional(),
   status: z.enum(['planning', 'in_progress', 'completed', 'unpacking']).optional(),
