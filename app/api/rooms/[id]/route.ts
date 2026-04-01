@@ -86,6 +86,12 @@ export async function DELETE(
     return NextResponse.json({ error: "Room not found" }, { status: 404 });
   }
 
+  // Move all boxes in this room to "Unassigned"
+  await db.collection("boxes").updateMany(
+    { move_id: room.move_id, room: room.name },
+    { $set: { room: "Unassigned" } }
+  );
+
   await db.collection("rooms").deleteOne({ _id: new ObjectId(params.id) });
 
   return new NextResponse(null, { status: 204 });
