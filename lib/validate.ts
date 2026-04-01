@@ -94,6 +94,19 @@ export const UpdateInspectionSchema = z.object({
   date: z.string().optional(),
 });
 
+// --- Shopping ---
+export const CreateShoppingItemSchema = z.object({
+  moveId: objectIdString,
+  name: z.string().min(1).max(200),
+  category: z.string().max(50).optional(),
+});
+
+export const UpdateShoppingItemSchema = z.object({
+  name: z.string().min(1).max(200).optional(),
+  checked: z.boolean().optional(),
+  category: z.string().max(50).optional(),
+});
+
 // --- Checklists ---
 export const CreateChecklistItemSchema = z.object({
   moveId: objectIdString,
