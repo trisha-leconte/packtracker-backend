@@ -81,6 +81,19 @@ export const LoginSchema = z.object({
   password: z.string().min(1),
 });
 
+// --- Inspections ---
+export const CreateInspectionSchema = z.object({
+  moveId: objectIdString,
+  type: z.enum(['move_in', 'move_out']),
+  date: z.string().optional(),
+  notes: z.string().max(2000).optional(),
+});
+
+export const UpdateInspectionSchema = z.object({
+  notes: z.string().max(2000).optional().nullable(),
+  date: z.string().optional(),
+});
+
 // --- Checklists ---
 export const CreateChecklistItemSchema = z.object({
   moveId: objectIdString,

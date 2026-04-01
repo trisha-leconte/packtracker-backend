@@ -34,7 +34,7 @@ async function setup() {
     const existing = await db.listCollections().toArray();
     const existingNames = existing.map((c) => c.name);
 
-    for (const name of ['moves', 'members', 'boxes', 'items', 'users', 'images', 'rooms', 'checklists', 'activities']) {
+    for (const name of ['moves', 'members', 'boxes', 'items', 'users', 'images', 'rooms', 'checklists', 'activities', 'inspections']) {
       if (!existingNames.includes(name)) {
         await db.createCollection(name);
         console.log(`Created collection: ${name}`);

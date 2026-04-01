@@ -11,7 +11,8 @@ function getClient() {
 
 export async function uploadToCloudinary(
   buffer: Buffer,
-  folder: string
+  folder: string,
+  resourceType: "image" | "video" = "image"
 ): Promise<{ publicId: string; url: string }> {
   const client = getClient();
   return new Promise((resolve, reject) => {
@@ -19,8 +20,8 @@ export async function uploadToCloudinary(
       .upload_stream(
         {
           folder: `packtrack/${folder}`,
-          resource_type: "image",
-          transformation: [{ quality: "auto", fetch_format: "auto" }],
+          resource_type: resourceType,
+          ...(resourceType === "image" ? { transformation: [{ quality: "auto", fetch_format: "auto" }] } : {}),
         },
         (error, result) => {
           if (error || !result) {
