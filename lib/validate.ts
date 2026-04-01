@@ -32,7 +32,7 @@ export const CreateBoxSchema = z.object({
   label: z.string().min(1).max(100),
   room: z.string().min(1).max(50),
   size: BoxSizeSchema.optional(),
-  tags: z.array(BoxTagEnum).optional(),
+  tags: z.array(z.string().min(1).max(50)).optional(),
   notes: z.string().max(1000).optional(),
   is_loose: z.boolean().optional(),
 });
@@ -43,7 +43,7 @@ export const UpdateBoxSchema = z.object({
   room: z.string().min(1).max(50).optional(),
   cover_image_url: z.string().url().optional().nullable(),
   size: BoxSizeSchema.optional(),
-  tags: z.array(BoxTagEnum).optional(),
+  tags: z.array(z.string().min(1).max(50)).optional(),
   notes: z.string().max(1000).optional().nullable(),
   is_loose: z.boolean().optional(),
 });
