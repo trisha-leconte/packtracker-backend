@@ -1,6 +1,6 @@
 /**
  * MongoDB Setup Script
- * Creates collections, indexes, and seed data for PackTrack.
+ * Creates collections, indexes, and seed data for BoxBoss.
  *
  * Usage:
  *   npx tsx scripts/setup-db.ts
@@ -11,7 +11,7 @@
 import { MongoClient, ObjectId } from 'mongodb';
 
 const uri = process.env.MONGODB_URI;
-const dbName = process.env.MONGODB_DB_NAME || 'packtrack';
+const dbName = process.env.MONGODB_DB_NAME || 'boxboss';
 
 if (!uri) {
   console.error('Error: MONGODB_URI environment variable is required.');
@@ -105,7 +105,7 @@ async function setup() {
     console.log('\nSetup complete!');
     console.log(`Database: ${dbName}`);
     console.log(`Default move ID: ${seedId.toHexString()}`);
-    console.log('Set PACKTRACK_MOVE_ID in .env.local to this value.');
+    console.log('Set BOXBOSS_MOVE_ID in .env.local to this value.');
   } finally {
     await client.close();
   }

@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'PackTrack API',
+  title: 'BoxBoss API',
   description: 'Moving box inventory API',
 };
 

@@ -19,7 +19,7 @@ export async function uploadToCloudinary(
     client.uploader
       .upload_stream(
         {
-          folder: `packtrack/${folder}`,
+          folder: `boxboss/${folder}`,
           resource_type: resourceType,
           ...(resourceType === "image" ? { transformation: [{ quality: "auto", fetch_format: "auto" }] } : {}),
         },

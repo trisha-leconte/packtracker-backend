@@ -79,5 +79,25 @@ export async function POST(req: NextRequest) {
     created_at: new Date(),
   });
 
+  // Auto-create default checklist items
+  const now = new Date();
+  const defaultChecklist = [
+    'Add move-in inspection',
+    'Check out Moving Tips in menu',
+    'Add members to your move',
+    'Set up rooms',
+    'Forward mail to new address',
+    'Transfer or cancel utilities',
+  ];
+  await db.collection('checklists').insertMany(
+    defaultChecklist.map((text) => ({
+      move_id: result.insertedId,
+      text,
+      checked: false,
+      created_by: new ObjectId(userId),
+      created_at: now,
+    }))
+  );
+
   return NextResponse.json({ _id: result.insertedId, ...doc }, { status: 201 });
 }
