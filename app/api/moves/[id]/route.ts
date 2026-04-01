@@ -68,10 +68,13 @@ export async function PATCH(
   const db = await getDb();
   const moveId = new ObjectId(params.id);
 
-  // Verify ownership
+  // Verify ownership (allow if no owner_id — legacy moves)
   const existing = await db.collection('moves').findOne({ _id: moveId });
-  if (!existing || !existing.owner_id.equals(new ObjectId(userId))) {
+  if (!existing) {
     return NextResponse.json({ error: 'Move not found' }, { status: 404 });
+  }
+  if (existing.owner_id && !existing.owner_id.equals(new ObjectId(userId))) {
+    return NextResponse.json({ error: 'Only the owner can do this' }, { status: 403 });
   }
 
   // Build update — convert startDate to Date if provided
@@ -109,10 +112,13 @@ export async function DELETE(
   const db = await getDb();
   const moveId = new ObjectId(params.id);
 
-  // Verify ownership
+  // Verify ownership (allow if no owner_id — legacy moves)
   const existing = await db.collection('moves').findOne({ _id: moveId });
-  if (!existing || !existing.owner_id.equals(new ObjectId(userId))) {
+  if (!existing) {
     return NextResponse.json({ error: 'Move not found' }, { status: 404 });
+  }
+  if (existing.owner_id && !existing.owner_id.equals(new ObjectId(userId))) {
+    return NextResponse.json({ error: 'Only the owner can do this' }, { status: 403 });
   }
 
   // Get all box IDs for this move to cascade-delete items
