@@ -17,7 +17,12 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
   const body = await req.json();
   const updates: Record<string, unknown> = {};
-  if (body.note !== undefined) updates["media.$.note"] = body.note;
+  if (body.note !== undefined) {
+    updates["media.$.note"] = body.note;
+    const user = await db.collection("users").findOne({ _id: new ObjectId(userId) });
+    updates["media.$.note_updated_by"] = new ObjectId(userId);
+    updates["media.$.note_updated_by_name"] = user?.name || "Unknown";
+  }
   if (body.room !== undefined) updates["media.$.room"] = body.room;
 
   if (Object.keys(updates).length === 0) return NextResponse.json({ error: "Nothing to update" }, { status: 400 });

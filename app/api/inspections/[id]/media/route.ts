@@ -28,6 +28,9 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     isVideo ? "video" : "image"
   );
 
+  const user = await db.collection("users").findOne({ _id: new ObjectId(userId) });
+  const userName = user?.name || "Unknown";
+
   const mediaEntry = {
     _id: new ObjectId(),
     url,
@@ -35,6 +38,8 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     public_id: publicId,
     note: "",
     room: "",
+    uploaded_by: new ObjectId(userId),
+    uploaded_by_name: userName,
     created_at: new Date(),
   };
 
